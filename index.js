@@ -8,6 +8,8 @@ app.get('/', function(req, res){
   res.sendFile('index.html', { root: __dirname });
 });
 
+var answer = 'banana';
+
 // Then I listen on the connection event for incoming sockets, and I log it to the console
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -15,6 +17,10 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     // console.log('message: ' + msg);
     io.emit('chat message', msg);
+    if (msg === answer) {
+      var answerMsg = 'the answer was ' + answer;
+      io.emit('answer found', answerMsg)
+    }
   });
 
   socket.on('disconnect', function(){
