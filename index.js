@@ -1,12 +1,23 @@
 // Express initializes app to be a function handler that you can supply to an HTTP server
-var app = require('express')();
-var http = require('http').Server(app);
-// Notice that I initialize a new instance of socket.io by passing the http (the HTTP server) object.
-var io = require('socket.io')(http);
+// var app = require('express')();
+// var http = require('http').Server(app);
 
-app.get('/', function(req, res){
-  res.sendFile('index.html', { root: __dirname });
-});
+var PORT = process.env.PORT || 3000;
+var INDEX = __dirname + '/index.html';
+
+var app = require('express')();
+
+var server = app.use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+
+// Notice that I initialize a new instance of socket.io by passing the http (the HTTP server) object.
+var io = require('socket.io')(server);
+
+// app.get('/', function(req, res){
+//   res.sendFile('index.html', { root: __dirname });
+// });
 
 var answer = 'banana';
 
@@ -28,6 +39,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+// http.listen(3000, function(){
+//   console.log('listening on *:3000');
+// });
