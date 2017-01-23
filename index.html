@@ -66,6 +66,10 @@
       socket.on('no answer found', function(noAnswerMsg) {
         $('#messages').append($('<li>').addClass('no-answer').text(noAnswerMsg));
       })
+
+      socket.on('disconnect', function() {
+        clearTimeout(questionTimer);
+      })
     </script>
   </body>
 </html>
