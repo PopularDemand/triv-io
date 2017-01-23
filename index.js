@@ -32,7 +32,6 @@ io.on('connection', function(socket){
   // console.log(answers)
 
   socket.on('chat message', function(msg){
-    // console.log('message: ' + msg);
     io.emit('chat message', msg);
     if ( answers.includes(msg) ) {
       var answerMsg = 'the answer was ' + msg;
