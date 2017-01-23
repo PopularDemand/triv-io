@@ -1,3 +1,4 @@
+var Reader = require('./reader.js').Reader;
 // Express initializes app to be a function handler that you can supply to an HTTP server
 // var app = require('express')();
 // var http = require('http').Server(app);
@@ -19,26 +20,38 @@ var io = require('socket.io')(server);
 //   res.sendFile('index.html', { root: __dirname });
 // });
 
-var answer = 'banana';
+var question = Reader.randomQuestion();
+
+var prompt = question.question;
+var answers = question.answers;
 
 // Then I listen on the connection event for incoming sockets, and I log it to the console
 io.on('connection', function(socket){
   console.log('a user connected');
+  io.emit('question', prompt);
+  // console.log(answers)
 
   socket.on('chat message', function(msg){
     // console.log('message: ' + msg);
     io.emit('chat message', msg);
-    if (msg === answer) {
-      var answerMsg = 'the answer was ' + answer;
+    if ( answers.includes(msg) ) {
+      var answerMsg = 'the answer was ' + msg;
       io.emit('answer found', answerMsg)
     }
   });
+
+  socket.on('new question', function(answerFound) {
+    if (!answerFound) {
+      var answerMsg = 'The answer: ' + answers[0];
+      io.emit('no answer found', answerMsg);
+    }
+    question = Reader.randomQuestion();
+    prompt = question.question;
+    answers = question.answers;
+    io.emit('question', prompt)
+  })
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
 });
-
-// http.listen(3000, function(){
-//   console.log('listening on *:3000');
-// });

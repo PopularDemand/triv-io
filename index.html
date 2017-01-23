@@ -11,6 +11,9 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      .question { color: #333; font-weight: 600; }
+      .answer { color: green; }
+      .no-answer { color: darkred; }
     </style>
   </head>
   <body>
@@ -28,6 +31,7 @@
     <!-- Notice that I’m not specifying any URL when I call io(), since it defaults to trying to connect to the host that serves the page. -->
     <script>
       var socket = io();
+      var questionTimer;
 
       // Let’s make it so that when the user types in a message, the server gets it as a chat message event
       $('form').submit(function(){
@@ -41,9 +45,26 @@
         $('#messages').append($('<li>').text(msg));
       });
 
+      socket.on('question', function(prompt) {
+        $('#messages').append($('<li>').addClass('question').text(prompt));
+        questionTimer = setTimeout(function(){
+          resetQuestion(false);
+        }, 8000);
+      });
+
+      var resetQuestion = function(answerFound) {
+        socket.emit('new question', answerFound);
+      }
+
       socket.on('answer found', function(answerMsg) {
         $('li').remove();
-        $('#messages').append($('<li>').text(answerMsg));
+        $('#messages').append($('<li>').addClass('answer').text(answerMsg));
+        clearTimeout(questionTimer);
+        resetQuestion(true);
+      });
+
+      socket.on('no answer found', function(noAnswerMsg) {
+        $('#messages').append($('<li>').addClass('no-answer').text(noAnswerMsg));
       })
     </script>
   </body>
