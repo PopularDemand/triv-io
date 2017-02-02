@@ -1,20 +1,20 @@
 var Reader = require('./reader.js').Reader;
-// Express initializes app to be a function handler that you can supply to an HTTP server
-// var app = require('express')();
-// var http = require('http').Server(app);
 
 var PORT = process.env.PORT || 3000;
 var INDEX = __dirname + '/index.html';
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
-var app = require('express')();
 
+app.use(express.static('public'))
 var server = app.use((req, res) => res.sendFile(INDEX) )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
 
 // Notice that I initialize a new instance of socket.io by passing the http (the HTTP server) object.
-var io = require('socket.io')(server);
 
 // app.get('/', function(req, res){
 //   res.sendFile('index.html', { root: __dirname });
@@ -51,7 +51,6 @@ io.on('connection', function(socket){
   })
 
   socket.on('disconnect', function(){
-    console.log('user disconnected');
-    socket.emit('disconnect');
+    io.emit('disconnect');
   });
 });
