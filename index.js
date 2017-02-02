@@ -50,7 +50,7 @@ io.on('connection', function(socket){
     io.emit('question', prompt)
   })
 
-  socket.on('disconnect', function(){
+  io.on('disconnect', function(){
     console.log('user disconnected');
     socket.emit('disconnect');
   });
