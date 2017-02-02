@@ -8,9 +8,15 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 
-app.use(express.static('public'))
-var server = app.use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.use(express.static(__dirname + '/public'))
+app.get('/', function(req, res, next) {
+  res.sendFile(INDEX);
+});
+
+server.listen(PORT);
+
+// var server = app.use((req, res) => res.sendFile(INDEX) )
+//   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
 
