@@ -13,7 +13,7 @@ app.get('/', function(req, res, next) {
   res.sendFile(INDEX);
 });
 
-server.listen(PORT);
+server.listen(PORT, () => console.log('listening', PORT));
 
 // var server = app.use((req, res) => res.sendFile(INDEX) )
 //   .listen(PORT, () => console.log(`Listening on ${ PORT }`));

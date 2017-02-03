@@ -20,10 +20,11 @@
       var socket = io();
       var questionTimer;
 
-      $('form').submit(function(){
+      $('form').submit(function(e){
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
-        return false;
+        e.preventDefault();
+        // return false;
       });
 
       socket.on('chat message', function(msg){
