@@ -15,17 +15,6 @@ app.get('/', function(req, res, next) {
 
 server.listen(PORT, () => console.log('listening', PORT));
 
-// var server = app.use((req, res) => res.sendFile(INDEX) )
-//   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-
-
-// Notice that I initialize a new instance of socket.io by passing the http (the HTTP server) object.
-
-// app.get('/', function(req, res){
-//   res.sendFile('index.html', { root: __dirname });
-// });
-
 var question = Reader.randomQuestion();
 
 var prompt = question.question;
