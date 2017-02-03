@@ -30,7 +30,8 @@ form button {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow-y: scroll;
+  overflow: auto;
+  height: calc(100vh - 45px);
 }
 #messages li {
   padding: 5px 10px;
