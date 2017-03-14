@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // Middleware
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 // Lib
 var Reader = require('./reader.js').Reader;
@@ -22,8 +22,7 @@ var pages = require('./routes/pages');
 
 // Routes
 app.use('/', pages);
-
-// app.use('/rooms', chatrooms)
+app.use('/room', chatrooms);
 
 server.listen(PORT, () => console.log('listening', PORT));
 
