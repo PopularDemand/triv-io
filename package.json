@@ -4,7 +4,8 @@
   "description": "hopefully web sockets",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start": "node index.js"
   },
   "keywords": [
     "sockets"
@@ -13,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.10.2",
+    "hbs": "^4.0.1",
     "socket.io": "^1.7.2"
   }
 }

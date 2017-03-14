@@ -1,17 +1,29 @@
-var Reader = require('./reader.js').Reader;
-
-var PORT = process.env.PORT || 3000;
-var INDEX = __dirname + '/index.html';
 var express = require('express');
+var path = require('path');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+// Constants
+var PORT = process.env.PORT || 3000;
+var INDEX = __dirname + '/index.html';
 
-app.use(express.static(__dirname + '/public'))
-app.get('/', function(req, res, next) {
-  res.sendFile(INDEX);
-});
+// View engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+// Middleware
+app.use(express.static(path.join(__dirname, '/public')));
+
+// Lib
+var Reader = require('./reader.js').Reader;
+var chatrooms = require('./routes/chatrooms');
+var pages = require('./routes/pages');
+
+// Routes
+app.use('/', pages);
+
+// app.use('/rooms', chatrooms)
 
 server.listen(PORT, () => console.log('listening', PORT));
 
@@ -20,7 +32,7 @@ var question = Reader.randomQuestion();
 var prompt = question.question;
 var answers = question.answers;
 
-// Then I listen on the connection event for incoming sockets, and I log it to the console
+// Socket
 io.on('connection', function(socket){
   console.log('a user connected');
   io.emit('question', prompt);
@@ -47,5 +59,6 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
     io.emit('disconnect');
+    console.log('a user disconnected')
   });
 });
