@@ -4,11 +4,12 @@
 var socket = io();
 var questionTimer;
 
+const QUESTION_SPEED = 15000;
+
 $('form').submit(function(e){
   socket.emit('chat message', $('#m').val());
   $('#m').val('');
   e.preventDefault();
-  // return false;
 });
 
 socket.on('chat message', function(msg){
@@ -21,7 +22,7 @@ socket.on('question', function(prompt) {
   scroll();
   questionTimer = setTimeout(function(){
     resetQuestion(false);
-  }, 15000);
+  }, QUESTION_SPEED);
 });
 
 var resetQuestion = function(answerFound) {
@@ -37,7 +38,6 @@ var scroll = function() {
 }
 
 socket.on('answer found', function(answerMsg) {
-  $('li').remove();
   $('#messages').append($('<li>').addClass('answer').text(answerMsg));
   scroll();
   clearTimeout(questionTimer);
