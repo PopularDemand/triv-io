@@ -1,73 +1,34 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html ng-app='trivio'>
   <head>
     <title>Socket.IO chat</title>
-    <link rel="stylesheet" href="styles.css" type='text/css'>
+    <link rel="stylesheet" href="/stylesheets/styles.css" type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <!-- UI Router -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+
+    <script src="/scripts/app.js"></script>
   </head>
-  <body>
-    <ul id="messages"></ul>
-    <div class="submit-buffer"></div>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+  <body ng-controller='TestCtrl'>
+    <nav>
+      <form id="signup-form">
+        <input type="text" id='email'>
+        <input type="text" id='password'>
+        <input type="submit">
+      </form>
+    </nav>
 
+    this got sent from the angular app
+    <button ng-click='sendAlert()'>click</button>
+    <script src="/scripts/app.js"></script>
 
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-
-    <script>
-      var socket = io();
-      var questionTimer;
-
-      $('form').submit(function(e){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        e.preventDefault();
-        // return false;
-      });
-
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-        scroll();
-      });
-
-      socket.on('question', function(prompt) {
-        $('#messages').append($('<li>').addClass('question').text(prompt));
-        scroll();
-        questionTimer = setTimeout(function(){
-          resetQuestion(false);
-        }, 15000);
-      });
-
-      var resetQuestion = function(answerFound) {
-        socket.emit('new question', answerFound);
-      }
-
-      var scroll = function() {
-        var messages = document.getElementById('messages');
-        var shouldScroll = messages.scrollTop + messages.clientHeight <= messages.scrollHeight;
-        if (shouldScroll) {
-          messages.scrollTop = messages.scrollHeight;
-        }
-      }
-
-      socket.on('answer found', function(answerMsg) {
-        $('li').remove();
-        $('#messages').append($('<li>').addClass('answer').text(answerMsg));
-        scroll();
-        clearTimeout(questionTimer);
-        resetQuestion(true);
-      });
-
-      socket.on('no answer found', function(noAnswerMsg) {
-        $('#messages').append($('<li>').addClass('no-answer').text(noAnswerMsg));
-        scroll();
-      })
-
-      socket.on('disconnect', function() {
-        clearTimeout(questionTimer);
-      })
-    </script>
+    <!-- Controllers -->
+    <script src="scripts/controllers/TestCtrl.js"></script>
   </body>
 </html>
