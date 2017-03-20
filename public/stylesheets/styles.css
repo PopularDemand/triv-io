@@ -3,8 +3,19 @@
   padding: 0;
   box-sizing: border-box; }
 
+@font-face {
+  font-family: 'Quirkus';
+  src: url("./fonts/Quirkus-Out.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
 body {
-  font: 13px Helvetica, Arial; }
+  font-family: Helvetica, Arial;
+}
+
+.logo {
+  font-family: "Quirkus";
+}
 
 #chat-input {
   background: #000;
