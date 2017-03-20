@@ -8,6 +8,10 @@ trivio.config(['$stateProvider', '$urlRouterProvider',
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: '/views'
+        templateUrl: '/views/home.html'
       })
-  }])
+      .state('room', {
+        url: '/room',
+        templateUrl: '/views/room.html'
+      });
+  }]);

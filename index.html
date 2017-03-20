@@ -16,19 +16,18 @@
     <script src="/scripts/app.js"></script>
   </head>
   <body ng-controller='TestCtrl'>
-    <nav>
-      <form id="signup-form">
-        <input type="text" id='email'>
-        <input type="text" id='password'>
-        <input type="submit">
-      </form>
-    </nav>
+    <main-nav></main-nav>
 
-    this got sent from the angular app
-    <button ng-click='sendAlert()'>click</button>
+    <ui-view></ui-view>
+
+    <!-- App -->
     <script src="/scripts/app.js"></script>
-
     <!-- Controllers -->
     <script src="scripts/controllers/TestCtrl.js"></script>
+    <!-- Services -->
+
+    <!-- Directives -->
+    <script src="scripts/directives/mainNav.js"></script>
+    
   </body>
 </html>

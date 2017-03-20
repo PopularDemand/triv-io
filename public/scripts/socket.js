@@ -27,7 +27,7 @@ socket.on('question', function(prompt) {
 
 var resetQuestion = function(answerFound) {
   socket.emit('new question', answerFound);
-}
+};
 
 var scroll = function() {
   var messages = document.getElementById('messages');
@@ -35,7 +35,7 @@ var scroll = function() {
   if (shouldScroll) {
     messages.scrollTop = messages.scrollHeight;
   }
-}
+};
 
 socket.on('answer found', function(answerMsg) {
   $('#messages').append($('<li>').addClass('answer').text(answerMsg));
@@ -47,8 +47,8 @@ socket.on('answer found', function(answerMsg) {
 socket.on('no answer found', function(noAnswerMsg) {
   $('#messages').append($('<li>').addClass('no-answer').text(noAnswerMsg));
   scroll();
-})
+});
 
 socket.on('disconnect', function() {
   clearTimeout(questionTimer);
-})
+});
