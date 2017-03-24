@@ -7,9 +7,13 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/styles.css" type='text/css'>
+
+    <!-- SocketIO -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
     <!-- AngularFire -->
@@ -17,9 +21,8 @@
     <!-- UI Router -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
 
-    <script src="/scripts/app.js"></script>
   </head>
-  <body ng-controller='TestCtrl'>
+  <body>
     <main-nav></main-nav>
 
     <ui-view></ui-view>
@@ -30,9 +33,13 @@
 
     <!-- App -->
     <script src="/scripts/app.js"></script>
+
     <!-- Controllers -->
     <script src="scripts/controllers/TestCtrl.js"></script>
+    <script src="scripts/controllers/RoomCtrl.js"></script>
+
     <!-- Services -->
+    <script src="scripts/services/socketService.js"></script>
 
     <!-- Directives -->
     <script src="scripts/directives/mainNav.js"></script>

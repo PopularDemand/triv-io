@@ -12,6 +12,7 @@ trivio.config(['$stateProvider', '$urlRouterProvider',
       })
       .state('room', {
         url: '/room',
-        templateUrl: '/views/room.html'
+        templateUrl: '/views/room.html',
+        controller: 'RoomCtrl'
       });
   }]);
